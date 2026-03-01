@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Polaris One — Simple, Powerful Product Roadmapping</title>
+  <link rel="stylesheet" href="/css/auth-modal.css">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -564,7 +565,7 @@
       .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 640px) {
-      .nav-links a:not(.btn) { display: none; }
+      .nav-links a:not(.btn):not(.nav-login) { display: none; }
       .hero { padding: 130px 20px 60px; }
       .hero-visual { padding: 20px; }
       .feature-grid { grid-template-columns: 1fr; }
@@ -592,7 +593,8 @@
       <div class="nav-links">
         <a href="#features">Features</a>
         <a href="#dashboard">Proof</a>
-        <a href="#cta" class="btn btn-primary">Get Started</a>
+        <a href="#" class="nav-login" id="nav-login">Login</a>
+        <a href="#" class="btn btn-primary" id="nav-get-started">Get Started</a>
       </div>
     </div>
   </nav>
@@ -603,7 +605,7 @@
     <h1>Know where you're going. And why.</h1>
     <p>Polaris One gives product teams a clean, visual way to plan what's next, align on priorities, and share progress. No bloated spreadsheets. No thirty-tab nightmares.</p>
     <div class="hero-actions">
-      <a href="#cta" class="btn btn-primary">Start your free roadmap</a>
+      <a href="#" class="btn btn-primary" id="hero-signup">Start your free roadmap</a>
       <a href="#features" class="btn btn-secondary">See How It Works</a>
     </div>
 
@@ -844,7 +846,7 @@
     <div class="cta-box">
       <h2>Your roadmap is waiting.</h2>
       <p>Start free. No credit card, no "let me check with procurement". Just open it up and start planning.</p>
-      <a href="#" class="btn btn-primary">Start your free roadmap</a>
+      <a href="#" class="btn btn-primary" id="cta-signup">Start your free roadmap</a>
     </div>
   </section>
 
@@ -926,5 +928,59 @@
     })();
   </script>
 
+  <!-- AUTH MODAL -->
+  <div id="auth-modal" class="auth-modal">
+    <div class="auth-backdrop"></div>
+    <div class="auth-dialog">
+      <button class="auth-close" aria-label="Close">&times;</button>
+
+      <!-- Sign-up form -->
+      <form id="signup-form" class="auth-form">
+        <h2>Create your account</h2>
+        <p class="auth-subtitle">Start your free roadmap in seconds</p>
+        <div class="auth-row">
+          <div class="auth-field">
+            <label for="signup-first">First name</label>
+            <input type="text" id="signup-first" name="firstName" required autocomplete="given-name" placeholder="Jane">
+          </div>
+          <div class="auth-field">
+            <label for="signup-last">Last name</label>
+            <input type="text" id="signup-last" name="lastName" required autocomplete="family-name" placeholder="Doe">
+          </div>
+        </div>
+        <div class="auth-field">
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" name="email" required autocomplete="email" placeholder="jane@example.com">
+        </div>
+        <div class="auth-field">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" name="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
+          <span class="auth-hint">Must be at least 8 characters</span>
+        </div>
+        <div class="auth-error" id="signup-error" hidden></div>
+        <button type="submit" class="btn btn-primary auth-submit">Create account</button>
+        <p class="auth-switch">Already have an account? <a href="#" id="show-login">Log in</a></p>
+      </form>
+
+      <!-- Login form -->
+      <form id="login-form" class="auth-form" hidden>
+        <h2>Welcome back</h2>
+        <p class="auth-subtitle">Log in to your roadmap</p>
+        <div class="auth-field">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" name="email" required autocomplete="email" placeholder="jane@example.com">
+        </div>
+        <div class="auth-field">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" required autocomplete="current-password" placeholder="Your password">
+        </div>
+        <div class="auth-error" id="login-error" hidden></div>
+        <button type="submit" class="btn btn-primary auth-submit">Log in</button>
+        <p class="auth-switch">Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/auth-modal.js"></script>
 </body>
 </html>
