@@ -8,15 +8,21 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --navy: #0B1120;
-      --slate: #334155;
-      --muted: #64748B;
-      --light: #F8FAFC;
-      --white: #FFFFFF;
-      --accent: #2563EB;
-      --accent-light: #DBEAFE;
-      --accent-dark: #1D4ED8;
-      --border: #E2E8F0;
+      --coral: #FE4B60;
+      --coral-dark: #E53652;
+      --coral-light: #FFF0F2;
+      --navy: #001E3A;
+      --teal: #007A8B;
+      --green: #4BB78F;
+      --orange: #F1BD76;
+      --lime: #C3FF34;
+      --mint: #BBF6E2;
+      --pink: #FFD7F0;
+      --bg: #F2F8F3;
+      --surface: #FFFFFF;
+      --border: #E4E6EA;
+      --text: #001E3A;
+      --muted: #6B7280;
       --radius: 12px;
     }
 
@@ -24,8 +30,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
-      color: var(--slate);
-      background: var(--white);
+      color: var(--text);
+      background: var(--bg);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
@@ -35,7 +41,7 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(255,255,255,0.85);
+      background: rgba(242,248,243,0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
@@ -62,7 +68,7 @@
     .logo-icon {
       width: 28px;
       height: 28px;
-      background: var(--accent);
+      background: var(--coral);
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -92,35 +98,35 @@
       border: none;
     }
     .btn-primary {
-      background: var(--accent);
-      color: var(--white);
+      background: var(--coral);
+      color: var(--surface);
     }
     .btn-primary:hover {
-      background: var(--accent-dark);
+      background: var(--coral-dark);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+      box-shadow: 0 4px 12px rgba(254,75,96,0.3);
     }
     .btn-secondary {
-      background: var(--white);
-      color: var(--accent);
+      background: var(--surface);
+      color: var(--coral);
       border: 1.5px solid var(--border);
     }
     .btn-secondary:hover {
-      border-color: var(--accent);
-      background: var(--accent-light);
+      border-color: var(--coral);
+      background: var(--coral-light);
     }
 
     /* ---------- HERO ---------- */
     .hero {
       padding: 160px 24px 100px;
       text-align: center;
-      background: linear-gradient(180deg, var(--white) 0%, var(--light) 100%);
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
     }
     .hero-badge {
       display: inline-block;
       padding: 6px 16px;
-      background: var(--accent-light);
-      color: var(--accent);
+      background: var(--mint);
+      color: var(--teal);
       font-size: 13px;
       font-weight: 600;
       border-radius: 50px;
@@ -138,7 +144,7 @@
     .hero p {
       font-size: 18px;
       color: var(--muted);
-      max-width: 540px;
+      max-width: 560px;
       margin: 0 auto 40px;
       line-height: 1.7;
     }
@@ -149,32 +155,78 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+
+    /* ---------- ROADMAP TIMELINE ---------- */
     .hero-visual {
       margin: 60px auto 0;
-      max-width: 900px;
+      max-width: 940px;
       border-radius: 16px;
-      background: var(--white);
+      background: var(--surface);
       border: 1px solid var(--border);
       box-shadow: 0 20px 60px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
       overflow: hidden;
-      aspect-ratio: 16/9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 14px;
+      padding: 32px;
     }
-    .hero-visual-inner {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, var(--light) 0%, var(--white) 50%, var(--accent-light) 100%);
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .roadmap-col-header {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 4px;
+    }
+    .roadmap-col {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
+      gap: 12px;
     }
-    .hero-visual-inner svg { opacity: 0.3; }
+    .roadmap-card {
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: var(--bg);
+      border-left: 4px solid var(--coral);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s;
+    }
+    .roadmap-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .roadmap-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+    .roadmap-card.visible:hover {
+      transform: translateY(-2px);
+    }
+    .roadmap-card.border-teal { border-left-color: var(--teal); }
+    .roadmap-card.border-orange { border-left-color: var(--orange); }
+    .roadmap-card.border-green { border-left-color: var(--green); }
+    .roadmap-card.border-pink { border-left-color: var(--pink); }
+    .roadmap-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .roadmap-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .tag-progress { background: var(--mint); color: var(--teal); }
+    .tag-planned { background: #FEF3D9; color: #92660A; }
+    .tag-exploring { background: var(--pink); color: #9B2D6B; }
 
     /* ---------- LOGOS ---------- */
     .logos {
@@ -216,7 +268,7 @@
       font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--accent);
+      color: var(--coral);
       font-weight: 600;
       margin-bottom: 12px;
     }
@@ -246,7 +298,7 @@
       padding: 32px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: var(--white);
+      background: var(--surface);
       transition: box-shadow 0.25s, transform 0.25s;
     }
     .feature-card:hover {
@@ -257,13 +309,18 @@
       width: 44px;
       height: 44px;
       border-radius: 10px;
-      background: var(--accent-light);
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
     }
-    .feature-icon svg { width: 22px; height: 22px; color: var(--accent); }
+    .feature-icon svg { width: 22px; height: 22px; }
+    .icon-coral { background: var(--coral-light); color: var(--coral); }
+    .icon-teal { background: #E0F5F7; color: var(--teal); }
+    .icon-green { background: #E2F8EE; color: var(--green); }
+    .icon-orange { background: #FEF3D9; color: #B8860B; }
+    .icon-pink { background: var(--pink); color: #9B2D6B; }
+    .icon-navy { background: #E8EDF3; color: var(--navy); }
     .feature-card h3 {
       font-size: 17px;
       font-weight: 700;
@@ -276,29 +333,183 @@
       line-height: 1.6;
     }
 
-    /* ---------- STATS ---------- */
-    .stats {
-      padding: 80px 24px;
-      background: var(--light);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+    /* ---------- PRIORITY MATRIX ---------- */
+    .matrix-section {
+      padding: 100px 24px;
+      background: var(--surface);
     }
-    .stats-inner {
-      max-width: 900px;
+    .matrix-section .section-inner {
+      max-width: 1120px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 40px;
-      text-align: center;
     }
-    .stat-number {
-      font-size: 42px;
+    .matrix-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .matrix-header h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .matrix-header p {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .matrix-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+      aspect-ratio: 1;
+      position: relative;
+    }
+    .matrix-quadrant {
+      border-radius: 12px;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 16px;
+    }
+    .matrix-quadrant .q-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.7;
+    }
+    .q-quickwins { background: #E2F8EE; }
+    .q-quickwins .q-label { color: #1A7A4C; }
+    .q-bigbets { background: var(--coral-light); }
+    .q-bigbets .q-label { color: var(--coral-dark); }
+    .q-fillins { background: #FEF3D9; }
+    .q-fillins .q-label { color: #92660A; }
+    .q-moneypit { background: #F3F4F6; }
+    .q-moneypit .q-label { color: #6B7280; }
+
+    .matrix-dot {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+      z-index: 2;
+    }
+    .matrix-dot.visible { transform: scale(1); }
+    .matrix-dot::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--navy);
+      color: var(--surface);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .matrix-dot:hover::after { opacity: 1; }
+
+    .axis-label {
+      position: absolute;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .axis-y {
+      left: -36px;
+      top: 50%;
+      transform: rotate(-90deg) translateX(-50%);
+      transform-origin: left center;
+    }
+    .axis-x {
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* ---------- DASHBOARD / STATS ---------- */
+    .dashboard {
+      padding: 100px 24px;
+      background: var(--bg);
+    }
+    .dashboard-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .dashboard-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .dashboard-header h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .dashboard-header p {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .metric-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .metric-ring {
+      flex-shrink: 0;
+    }
+    .metric-ring svg {
+      width: 64px;
+      height: 64px;
+    }
+    .ring-track { fill: none; stroke: var(--border); stroke-width: 5; }
+    .ring-fill {
+      fill: none;
+      stroke-width: 5;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1.2s ease-out;
+    }
+    .metric-info { display: flex; flex-direction: column; }
+    .metric-number {
+      font-size: 28px;
       font-weight: 800;
       color: var(--navy);
       letter-spacing: -0.02em;
+      line-height: 1.1;
     }
-    .stat-label {
-      font-size: 14px;
+    .metric-label {
+      font-size: 13px;
       color: var(--muted);
       margin-top: 4px;
     }
@@ -314,7 +525,7 @@
       padding: 64px 40px;
       border-radius: 20px;
       background: var(--navy);
-      color: var(--white);
+      color: var(--surface);
     }
     .cta-box h2 {
       font-size: clamp(26px, 4vw, 36px);
@@ -343,12 +554,22 @@
     }
 
     /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .roadmap-grid { grid-template-columns: 1fr; }
+      .matrix-grid { max-width: 400px; margin: 0 auto; }
+      .matrix-dot { width: 14px; height: 14px; }
+      .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 640px) {
       .nav-links a:not(.btn) { display: none; }
       .hero { padding: 130px 20px 60px; }
+      .hero-visual { padding: 20px; }
       .feature-grid { grid-template-columns: 1fr; }
       .logo-grid { gap: 28px; }
       .cta-box { padding: 48px 24px; }
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .matrix-dot { width: 12px; height: 12px; }
+      .matrix-wrapper { max-width: 100%; }
     }
   </style>
 </head>
@@ -367,7 +588,7 @@
       </a>
       <div class="nav-links">
         <a href="#features">Features</a>
-        <a href="#stats">Proof</a>
+        <a href="#dashboard">Proof</a>
         <a href="#cta" class="btn btn-primary">Get Started</a>
       </div>
     </div>
@@ -375,28 +596,67 @@
 
   <!-- HERO -->
   <section class="hero">
-    <span class="hero-badge">Now in Public Beta</span>
-    <h1>Product roadmapping, made simple</h1>
-    <p>Build clarity and confidence on your product plans. No bloat, no complexity — just a clean, powerful way to map where you're going and why.</p>
+    <span class="hero-badge">Try it free, seriously</span>
+    <h1>Know where you're going. And why.</h1>
+    <p>Polaris One gives product teams a clean, visual way to plan what's next, align on priorities, and share progress. No bloated spreadsheets. No thirty-tab nightmares.</p>
     <div class="hero-actions">
-      <a href="#cta" class="btn btn-primary">Start Free Trial</a>
+      <a href="#cta" class="btn btn-primary">Start your free roadmap</a>
       <a href="#features" class="btn btn-secondary">See How It Works</a>
     </div>
+
+    <!-- Roadmap Timeline -->
     <div class="hero-visual">
-      <div class="hero-visual-inner">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <line x1="3" y1="9" x2="21" y2="9"/>
-          <line x1="9" y1="21" x2="9" y2="9"/>
-        </svg>
-        <span>Product screenshot</span>
+      <div class="roadmap-grid">
+        <div>
+          <div class="roadmap-col-header">Now</div>
+          <div class="roadmap-col">
+            <div class="roadmap-card" style="transition-delay:0ms">
+              <div class="roadmap-card-title">API v2 rollout</div>
+              <span class="roadmap-tag tag-progress">In Progress</span>
+            </div>
+            <div class="roadmap-card border-teal" style="transition-delay:80ms">
+              <div class="roadmap-card-title">Onboarding redesign</div>
+              <span class="roadmap-tag tag-progress">In Progress</span>
+            </div>
+            <div class="roadmap-card border-green" style="transition-delay:160ms">
+              <div class="roadmap-card-title">Performance audit</div>
+              <span class="roadmap-tag tag-progress">In Progress</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="roadmap-col-header">Next</div>
+          <div class="roadmap-col">
+            <div class="roadmap-card border-orange" style="transition-delay:240ms">
+              <div class="roadmap-card-title">Team permissions</div>
+              <span class="roadmap-tag tag-planned">Planned</span>
+            </div>
+            <div class="roadmap-card border-pink" style="transition-delay:320ms">
+              <div class="roadmap-card-title">Custom dashboards</div>
+              <span class="roadmap-tag tag-planned">Planned</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="roadmap-col-header">Later</div>
+          <div class="roadmap-col">
+            <div class="roadmap-card border-teal" style="transition-delay:400ms">
+              <div class="roadmap-card-title">AI priority scoring</div>
+              <span class="roadmap-tag tag-exploring">Exploring</span>
+            </div>
+            <div class="roadmap-card border-pink" style="transition-delay:480ms">
+              <div class="roadmap-card-title">Mobile app</div>
+              <span class="roadmap-tag tag-exploring">Exploring</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- LOGOS -->
   <section class="logos">
-    <p>Trusted by forward-thinking teams</p>
+    <p>Loved by teams who actually ship</p>
     <div class="logo-grid">
       <span class="logo-placeholder">Acme Co</span>
       <span class="logo-placeholder">Globex</span>
@@ -409,64 +669,64 @@
   <!-- FEATURES -->
   <section class="features" id="features">
     <div class="features-header">
-      <p class="section-label">Features</p>
-      <h2>Everything you need, nothing you don't</h2>
-      <p>Built for product teams who want clarity over clutter. Plan with confidence in minutes, not days.</p>
+      <p class="section-label">What you get</p>
+      <h2>The good stuff, without the faff</h2>
+      <p>Built for teams who'd rather ship than sit in alignment meetings.</p>
     </div>
     <div class="feature-grid">
 
       <div class="feature-card">
-        <div class="feature-icon">
+        <div class="feature-icon icon-coral">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
           </svg>
         </div>
         <h3>Visual Roadmaps</h3>
-        <p>See your product plan at a glance. Timeline, kanban, or list — pick the view that clicks for your team.</p>
+        <p>See your whole plan in one glance. Timeline, kanban, or list — pick the view that clicks for your team.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">
+        <div class="feature-icon icon-teal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
         </div>
         <h3>Now / Next / Later</h3>
-        <p>Prioritise without overthinking. A simple framework that keeps your team focused on what matters right now.</p>
+        <p>Prioritise without the spreadsheet gymnastics. A dead-simple framework that keeps everyone pointed the same way.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">
+        <div class="feature-icon icon-green">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
         </div>
         <h3>Share with Stakeholders</h3>
-        <p>One link gives leadership, sales, or investors a live view of the plan. No exports, no slide decks.</p>
+        <p>One link gives leadership, sales, or investors a live view. No exports, no slide decks, no "can you resend that?"</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">
+        <div class="feature-icon icon-orange">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
           </svg>
         </div>
         <h3>Objective Alignment</h3>
-        <p>Link every feature to a goal. Know exactly why something is on the roadmap — and confidently say no to the rest.</p>
+        <p>Link every feature to a goal. Know exactly why something's on the roadmap — and confidently say no to the rest.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">
+        <div class="feature-icon icon-pink">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
           </svg>
         </div>
         <h3>Progress Tracking</h3>
-        <p>Lightweight status updates that take seconds. See what's on track, what's slipping, and what's shipped.</p>
+        <p>Lightweight status updates that take seconds, not meetings. See what's on track, what's slipping, and what shipped.</p>
       </div>
 
       <div class="feature-card">
-        <div class="feature-icon">
+        <div class="feature-icon icon-navy">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
           </svg>
@@ -478,24 +738,100 @@
     </div>
   </section>
 
-  <!-- STATS -->
-  <section class="stats" id="stats">
-    <div class="stats-inner">
-      <div>
-        <div class="stat-number">1,200+</div>
-        <div class="stat-label">Product teams</div>
+  <!-- PRIORITY MATRIX -->
+  <section class="matrix-section" id="matrix">
+    <div class="section-inner">
+      <div class="matrix-header">
+        <p class="section-label">Prioritise with confidence</p>
+        <h2>See the trade-offs before you commit</h2>
+        <p>Plot features by impact and effort. The good ideas rise to the top.</p>
       </div>
-      <div>
-        <div class="stat-number">&lt;5 min</div>
-        <div class="stat-label">Time to first roadmap</div>
+      <div class="matrix-wrapper">
+        <span class="axis-label axis-y">Impact &uarr;</span>
+        <span class="axis-label axis-x">Effort &rarr;</span>
+        <div class="matrix-grid">
+          <div class="matrix-quadrant q-quickwins"><span class="q-label">Quick Wins</span></div>
+          <div class="matrix-quadrant q-bigbets"><span class="q-label">Big Bets</span></div>
+          <div class="matrix-quadrant q-fillins"><span class="q-label">Fill-Ins</span></div>
+          <div class="matrix-quadrant q-moneypit"><span class="q-label">Money Pit</span></div>
+        </div>
+        <!-- Dots positioned over the grid -->
+        <div class="matrix-dot" data-label="Onboarding flow" style="background:var(--teal);top:12%;left:18%"></div>
+        <div class="matrix-dot" data-label="API v2" style="background:var(--coral);top:18%;left:72%"></div>
+        <div class="matrix-dot" data-label="Dark mode" style="background:var(--green);top:8%;left:32%"></div>
+        <div class="matrix-dot" data-label="Mobile app" style="background:var(--orange);top:25%;left:80%"></div>
+        <div class="matrix-dot" data-label="CSV export" style="background:var(--teal);top:68%;left:15%"></div>
+        <div class="matrix-dot" data-label="SSO" style="background:var(--coral);top:30%;left:58%"></div>
+        <div class="matrix-dot" data-label="Emoji reactions" style="background:var(--muted);top:72%;left:65%"></div>
+        <div class="matrix-dot" data-label="Smart filters" style="background:var(--green);top:15%;left:42%"></div>
       </div>
-      <div>
-        <div class="stat-number">4.9/5</div>
-        <div class="stat-label">User satisfaction</div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="dashboard" id="dashboard">
+    <div class="dashboard-inner">
+      <div class="dashboard-header">
+        <p class="section-label">Product health, at a glance</p>
+        <h2>Numbers that actually mean something</h2>
       </div>
-      <div>
-        <div class="stat-number">50k+</div>
-        <div class="stat-label">Roadmaps created</div>
+      <div class="dashboard-grid">
+        <div class="metric-card">
+          <div class="metric-ring">
+            <svg viewBox="0 0 64 64">
+              <circle class="ring-track" cx="32" cy="32" r="26"/>
+              <circle class="ring-fill" cx="32" cy="32" r="26" stroke="var(--coral)"
+                stroke-dasharray="163.36" stroke-dashoffset="163.36"
+                data-target="17.97" transform="rotate(-90 32 32)"/>
+            </svg>
+          </div>
+          <div class="metric-info">
+            <span class="metric-number" data-count="89" data-suffix="%">0%</span>
+            <span class="metric-label">On track</span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-ring">
+            <svg viewBox="0 0 64 64">
+              <circle class="ring-track" cx="32" cy="32" r="26"/>
+              <circle class="ring-fill" cx="32" cy="32" r="26" stroke="var(--teal)"
+                stroke-dasharray="163.36" stroke-dashoffset="163.36"
+                data-target="81.68" transform="rotate(-90 32 32)"/>
+            </svg>
+          </div>
+          <div class="metric-info">
+            <span class="metric-number" data-count="42" data-suffix="">0</span>
+            <span class="metric-label">Features shipped</span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-ring">
+            <svg viewBox="0 0 64 64">
+              <circle class="ring-track" cx="32" cy="32" r="26"/>
+              <circle class="ring-fill" cx="32" cy="32" r="26" stroke="var(--green)"
+                stroke-dasharray="163.36" stroke-dashoffset="163.36"
+                data-target="0" transform="rotate(-90 32 32)"/>
+            </svg>
+          </div>
+          <div class="metric-info">
+            <span class="metric-number" data-count="1200" data-suffix="+" data-prefix="">0</span>
+            <span class="metric-label">Product teams</span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-ring">
+            <svg viewBox="0 0 64 64">
+              <circle class="ring-track" cx="32" cy="32" r="26"/>
+              <circle class="ring-fill" cx="32" cy="32" r="26" stroke="var(--orange)"
+                stroke-dasharray="163.36" stroke-dashoffset="163.36"
+                data-target="16.34" transform="rotate(-90 32 32)"/>
+            </svg>
+          </div>
+          <div class="metric-info">
+            <span class="metric-number" data-count="4.9" data-suffix="/5" data-decimal="true">0</span>
+            <span class="metric-label">Satisfaction</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -503,9 +839,9 @@
   <!-- CTA -->
   <section class="cta" id="cta">
     <div class="cta-box">
-      <h2>Ready to plan with confidence?</h2>
-      <p>Start your 14-day free trial. No credit card required. Build your first roadmap in under 5 minutes.</p>
-      <a href="#" class="btn btn-primary">Get Started Free</a>
+      <h2>Your roadmap is waiting.</h2>
+      <p>Start free. No credit card, no "let me check with procurement". Just open it up and start planning.</p>
+      <a href="#" class="btn btn-primary">Start your free roadmap</a>
     </div>
   </section>
 
@@ -513,6 +849,79 @@
   <footer>
     &copy; 2026 Polaris One. All rights reserved.
   </footer>
+
+  <script>
+    // 1. Roadmap card staggered entrance
+    document.addEventListener('DOMContentLoaded', function() {
+      var cards = document.querySelectorAll('.roadmap-card');
+      cards.forEach(function(card, i) {
+        setTimeout(function() {
+          card.classList.add('visible');
+        }, 200 + i * 80);
+      });
+    });
+
+    // 2. IntersectionObserver for dashboard counters + rings
+    (function() {
+      var dashboardObserved = false;
+      var dashboardObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !dashboardObserved) {
+            dashboardObserved = true;
+            // Animate rings
+            document.querySelectorAll('.ring-fill').forEach(function(ring) {
+              var target = parseFloat(ring.getAttribute('data-target'));
+              ring.style.strokeDashoffset = target;
+            });
+            // Animate counters
+            document.querySelectorAll('.metric-number').forEach(function(el) {
+              var target = parseFloat(el.getAttribute('data-count'));
+              var suffix = el.getAttribute('data-suffix') || '';
+              var prefix = el.getAttribute('data-prefix') || '';
+              var isDecimal = el.getAttribute('data-decimal') === 'true';
+              var duration = 1200;
+              var start = performance.now();
+              function step(now) {
+                var progress = Math.min((now - start) / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                var current = eased * target;
+                if (isDecimal) {
+                  el.textContent = prefix + current.toFixed(1) + suffix;
+                } else if (target >= 100) {
+                  el.textContent = prefix + Math.round(current).toLocaleString() + suffix;
+                } else {
+                  el.textContent = prefix + Math.round(current) + suffix;
+                }
+                if (progress < 1) requestAnimationFrame(step);
+              }
+              requestAnimationFrame(step);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+      var dashboard = document.querySelector('.dashboard');
+      if (dashboard) dashboardObs.observe(dashboard);
+    })();
+
+    // 3. Matrix dot scale-in animation
+    (function() {
+      var matrixObserved = false;
+      var matrixObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !matrixObserved) {
+            matrixObserved = true;
+            document.querySelectorAll('.matrix-dot').forEach(function(dot, i) {
+              setTimeout(function() {
+                dot.classList.add('visible');
+              }, i * 100);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+      var matrix = document.querySelector('.matrix-wrapper');
+      if (matrix) matrixObs.observe(matrix);
+    })();
+  </script>
 
 </body>
 </html>
