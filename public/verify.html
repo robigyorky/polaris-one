@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Email — Polaris One</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --coral: #FE4B60;
+      --navy: #001E3A;
+      --bg: #F2F8F3;
+      --surface: #FFFFFF;
+      --muted: #6B7280;
+      --green: #059669;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+      color: var(--navy);
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px;
+    }
+    .card {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 60px 48px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+    .card h1 { font-size: 28px; margin-bottom: 12px; }
+    .card p { font-size: 16px; color: var(--muted); margin-bottom: 24px; }
+    .success { color: var(--green); }
+    .error { color: var(--coral); }
+    .btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--coral);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 4px solid #E4E6EA;
+      border-top-color: var(--coral);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="spinner" id="spinner"></div>
+    <h1 id="heading">Verifying your email...</h1>
+    <p id="message">Please wait while we confirm your email address.</p>
+  </div>
+
+  <script>
+    (async function () {
+      var params = new URLSearchParams(window.location.search);
+      var token = params.get('token');
+      var heading = document.getElementById('heading');
+      var message = document.getElementById('message');
+      var spinner = document.getElementById('spinner');
+      var card = document.getElementById('card');
+
+      if (!token) {
+        spinner.style.display = 'none';
+        heading.textContent = 'Invalid link';
+        heading.classList.add('error');
+        message.textContent = 'No verification token found. Please check your email for the correct link.';
+        return;
+      }
+
+      try {
+        var res = await fetch('/api/auth/verify?token=' + encodeURIComponent(token));
+        var data = await res.json();
+        spinner.style.display = 'none';
+
+        if (res.ok) {
+          heading.textContent = 'Email verified!';
+          heading.classList.add('success');
+          message.innerHTML = 'Your email has been verified successfully.';
+          var link = document.createElement('a');
+          link.href = '/product.html';
+          link.className = 'btn';
+          link.textContent = 'Go to Dashboard';
+          card.appendChild(link);
+        } else {
+          heading.textContent = 'Verification failed';
+          heading.classList.add('error');
+          message.textContent = data.error || 'Something went wrong. Please try again.';
+        }
+      } catch (err) {
+        spinner.style.display = 'none';
+        heading.textContent = 'Something went wrong';
+        heading.classList.add('error');
+        message.textContent = 'Network error. Please try again.';
+      }
+    })();
+  </script>
+</body>
+</html>

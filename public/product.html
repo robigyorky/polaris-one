@@ -125,6 +125,35 @@
       color: var(--muted);
     }
 
+    .verify-banner {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: #FFF3CD;
+      color: #856404;
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 14px;
+      z-index: 99;
+      border-bottom: 1px solid #FFEAA7;
+    }
+
+    .verify-banner.show { display: block; }
+
+    .verify-banner button {
+      background: none;
+      border: none;
+      color: var(--coral);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: underline;
+      font-family: inherit;
+      margin-left: 8px;
+    }
+
     @media (max-width: 640px) {
       .nav-inner { padding: 0 20px; }
       .welcome-card { padding: 40px 24px; }
@@ -147,6 +176,11 @@
     </div>
   </nav>
 
+  <div class="verify-banner" id="verify-banner">
+    Please check your email and verify your account.
+    <button id="resend-btn">Resend verification email</button>
+  </div>
+
   <main class="welcome-container">
     <div class="welcome-card">
       <h1 id="welcome-heading">Welcome!</h1>
@@ -155,7 +189,21 @@
   </main>
 
   <script>
+    var csrfToken = '';
+
+    async function fetchCsrfToken() {
+      try {
+        var res = await fetch('/api/auth/csrf-token');
+        var data = await res.json();
+        csrfToken = data.csrfToken;
+      } catch (e) {
+        console.error('Failed to fetch CSRF token:', e);
+      }
+    }
+
     (async function () {
+      await fetchCsrfToken();
+
       try {
         var res = await fetch('/api/auth/me');
         if (!res.ok) {
@@ -168,14 +216,42 @@
           return;
         }
         document.getElementById('welcome-heading').textContent = 'Welcome, ' + data.user.firstName + '!';
+
+        // Show verification banner if email not verified
+        if (!data.user.emailVerified) {
+          document.getElementById('verify-banner').classList.add('show');
+        }
       } catch (err) {
         window.location.href = '/';
       }
     })();
 
     document.getElementById('signout-btn').addEventListener('click', async function () {
-      await fetch('/api/auth/logout', { method: 'POST' });
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: { 'x-csrf-token': csrfToken }
+      });
       window.location.href = '/';
+    });
+
+    document.getElementById('resend-btn').addEventListener('click', async function () {
+      var btn = this;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      try {
+        var res = await fetch('/api/auth/resend-verification', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-csrf-token': csrfToken
+          }
+        });
+        var data = await res.json();
+        btn.textContent = data.message || 'Sent! Check your inbox.';
+      } catch (e) {
+        btn.textContent = 'Failed. Try again.';
+        btn.disabled = false;
+      }
     });
   </script>
 </body>

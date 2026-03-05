@@ -181,6 +181,39 @@
   color: var(--navy);
 }
 
+/* ---------- PASSWORD STRENGTH ---------- */
+.password-strength {
+  display: none;
+  margin-top: 8px;
+}
+
+.strength-rule {
+  font-size: 12px;
+  padding: 2px 0;
+  color: var(--muted);
+}
+
+.strength-rule::before {
+  content: '○ ';
+  font-size: 10px;
+}
+
+.strength-rule.pass {
+  color: #059669;
+}
+
+.strength-rule.pass::before {
+  content: '● ';
+}
+
+.strength-rule.fail {
+  color: var(--coral);
+}
+
+.strength-rule.fail::before {
+  content: '○ ';
+}
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 640px) {
   .auth-dialog {

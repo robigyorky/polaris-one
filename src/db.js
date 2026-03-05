@@ -23,4 +23,19 @@ db.exec(`
   );
 `);
 
+// Migrations: add columns if they don't exist (safe to re-run)
+const migrations = [
+  'ALTER TABLE users ADD COLUMN failed_login_attempts INTEGER DEFAULT 0',
+  'ALTER TABLE users ADD COLUMN locked_until TEXT',
+  'ALTER TABLE users ADD COLUMN email_verified INTEGER DEFAULT 0',
+  'ALTER TABLE users ADD COLUMN verification_token TEXT',
+  'ALTER TABLE users ADD COLUMN verification_expires TEXT',
+];
+
+for (const sql of migrations) {
+  try { db.exec(sql); } catch (e) {
+    // Column already exists — ignore
+  }
+}
+
 module.exports = db;
